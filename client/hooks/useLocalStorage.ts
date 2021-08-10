@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-const LOCAL_STORAGE_PREFIX = 'code-pencil-'
+const LOCAL_STORAGE_PREFIX = 'code-cube-'
 
 const useLocalStorage = (
   key: string,

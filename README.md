@@ -1,3 +1,3 @@
-# Code Pencil
+# Code Cube
 
 TODO: README template.

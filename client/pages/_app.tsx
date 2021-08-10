@@ -8,7 +8,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Code Pencil</title>
+        <title>Code Code</title>
       </Head>
       <Provider session={pageProps.session}>
         <Component {...pageProps} />

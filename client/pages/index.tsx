@@ -57,7 +57,7 @@ const IndexPage: React.FC = () => {
       <div className="pane">
         <iframe
           srcDoc={srcDoc}
-          title="code-pencil-sandbox"
+          title="code-cube-sandbox"
           style={{ border: 'none' }}
           sandbox="allow-scripts"
           width="100%"
