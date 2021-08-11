@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "codemirror": "^5.62.0",
+    "highlight.js": "^11.2.0",
     "mongodb": "^3.6.10",
     "next": "11.0.1",
     "next-auth": "^3.27.3",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@types/mongodb": "^3.6.20",
     "@types/react": "17.0.11",
+    "@types/react-highlight": "^0.12.3",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",
     "typescript": "4.3.4"
