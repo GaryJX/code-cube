@@ -22,8 +22,8 @@
 - Cubes List: `/api/cubes` (GET)
   - Gets a list of the all of the cubes available to the user
 - Create New Cube: `/api/cube` (POST)
-- Get Cube: `/api/cube/<id>` (GET)
-- Edit Cube: `/api/cube/<id>` (PUT) (TODO: Look into making this one a WebSocket connection instead of a PUT)
+- Get Cube: `/api/cube/<id>` (GET) (TODO: Look into making this one a WebSocket connection instead of a GET)
+- Edit Cube: `/api/cube/<id>` (PUT) (TODO: Maybe have 4 separate endpoints for updating HTML, CSS, JS, and packages separately)
 - Delete Cube: `/api/cube` (DELETE)
 
 #### Production Deployment
