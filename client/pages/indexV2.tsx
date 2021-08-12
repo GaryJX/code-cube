@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 const Editor = dynamic(() => import('@/components/EditorV2'), { ssr: false })
 
-const indexV2Page = () => {
+const IndexV2Page: React.FC = () => {
   useEffect(() => {
     axios
       .get('https://code-cube-api.herokuapp.com/api')
@@ -14,4 +14,4 @@ const indexV2Page = () => {
   return <Editor />
 }
 
-export default indexV2Page
+export default IndexV2Page
