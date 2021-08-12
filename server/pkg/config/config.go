@@ -1,7 +1,6 @@
 package config
 
 import (
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -14,10 +13,7 @@ type EnvVar struct {
 var Env EnvVar
 
 func SetupConfig() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	godotenv.Load()
 
 	Env.ClientUrl = os.Getenv("CLIENT_URL")
 }
