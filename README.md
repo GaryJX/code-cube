@@ -10,7 +10,11 @@
 - Homepage: `/`
   - Shows the index page, containing a list of Code Cubes that the user is created, and they can add/delete cubes here
   - Redirects to `/login` if user is not logged in
--
+- Editor: `/editor/<id>`
+  - The main editor page, allowing the user to edit the HTML/CSS/JS of the cube and see the rendered page.
+  - Also see if I can allow importing packages from `cdnjs`, `unpkg`, or `jsdelivr`
+  - Redirects to `/login` if user is not logged in
+- (Optional) Landing Page: `/<todo: replace Homepage with another endpoint>`
 
 #### Backend
 
