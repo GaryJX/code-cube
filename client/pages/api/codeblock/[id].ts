@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const codeBlock = await db.collection('codeBlocks').findOne({
     creatorId: userId,
-    _id: new ObjectId(id),
+    _id: new ObjectId(id as string),
   })
 
   console.log({ codeBlock })
