@@ -19,6 +19,13 @@
 
 #### Backend
 
+- Cubes List: `/api/cubes` (GET)
+  - Gets a list of the all of the cubes available to the user
+- Create New Cube: `/api/cube` (POST)
+- Get Cube: `/api/cube/<id>` (GET)
+- Edit Cube: `/api/cube/<id>` (PUT) (TODO: Look into making this one a WebSocket connection instead of a PUT)
+- Delete Cube: `/api/cube` (DELETE)
+
 #### Production Deployment
 
 - The `client` folder containing the front-end code is hosted on [Vercel](vercel.com), and is automatically rebuilt whenever a commit is pushed to the `main` branch
