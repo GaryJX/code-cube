@@ -26,7 +26,12 @@
 - Edit Cube: `/api/cube/<id>` (PUT) (TODO: Maybe have 4 separate endpoints for updating HTML, CSS, JS, and packages separately)
 - Delete Cube: `/api/cube` (DELETE)
 
-#### Production Deployment
+## Future enhancements
+
+- Look into using Quill.js + Highlight.js for Deltas (to improve functionality for realtime collaboration changes)
+- Replace Auth solution from Next-Auth to Go solution (so that auth is handled in the same server as the backend server)
+
+## Production Deployment
 
 - The `client` folder containing the front-end code is hosted on [Vercel](vercel.com), and is automatically rebuilt whenever a commit is pushed to the `main` branch
 - The `server` folder containing the server-side code is hosted on [Heroku](https://heroku.com/). To trigger a re-deployment, push the changes to Heroku's remote Git repository:
