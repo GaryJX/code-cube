@@ -1,20 +1,25 @@
 package main
 
 import (
+	"log"
 	"os"
 	"strings"
 
+	"github.com/GaryJX/code-cube/pkg/config"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	godotenv.Load()
+	config.SetupConfig()
+	log.Println(config.Env.ClientUrl)
+
 	app := fiber.New()
 
 	// TODO: Change cors config later, currently it allows all origins
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: config.Env.ClientUrl,
+	}))
 
 	app.Get("/api", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
