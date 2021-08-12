@@ -14,7 +14,8 @@
   - The main editor page, allowing the user to edit the HTML/CSS/JS of the cube and see the rendered page.
   - Also see if I can allow importing packages from `cdnjs`, `unpkg`, or `jsdelivr`
   - Redirects to `/login` if user is not logged in
-- (Optional) Landing Page: `/<todo: replace Homepage with another endpoint>`
+- (Lower Priority) Landing Page: `/<todo: replace Homepage with another endpoint>`
+  - A landing page to display the functionality of the application
 
 #### Backend
 
