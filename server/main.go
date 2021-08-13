@@ -20,6 +20,7 @@ func main() {
 
 	a := app.App{}
 	a.InitializeRouter()
+	// TODO: Add credentials for DB connection
 	a.InitializeDB()
 	a.Run(port)
 }
