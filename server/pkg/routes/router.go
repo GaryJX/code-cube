@@ -16,7 +16,7 @@ type Router struct {
 func NewRouter() *Router {
 	router := Router{fiber.New()}
 	router.Use(cors.New(cors.Config{
-		AllowOrigins: config.Env.ClientUrl,
+		AllowOrigins: config.Env.ClientURL,
 	}))
 	router.setupRoutes()
 	return &router

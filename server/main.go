@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"os"
 
 	"github.com/GaryJX/code-cube/pkg/config"
 	"github.com/GaryJX/code-cube/pkg/database"
@@ -11,11 +10,10 @@ import (
 
 func main() {
 	config.SetupConfig()
-	// TODO: Use Env Variables for these parameters
-	database.InitializeDB("mongodb://localhost:27017", "codeCube")
+	database.InitializeDB(config.Env.DatabaseURI, config.Env.DatabaseName)
 	defer database.DB.Client().Disconnect(context.Background())
 
-	port := os.Getenv("PORT")
+	port := config.Env.Port
 	// Default port in development
 	if port == "" {
 		port = "8080"
