@@ -3,7 +3,10 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/dist/client/router'
 import dynamic from 'next/dynamic'
-const Editor = dynamic(() => import('@/components/Editor'), { ssr: false })
+import Loading from '@/components/Loading/Loading'
+const Editor = dynamic(() => import('@/components/CodeEditor/CodeEditor'), {
+  ssr: false,
+})
 
 const IndexPage: React.FC = () => {
   const router = useRouter()
@@ -31,6 +34,8 @@ const IndexPage: React.FC = () => {
     router.push('/login')
     return null
   }
+
+  // return <Loading />
 
   return (
     <>
