@@ -10,7 +10,7 @@ func GetCubes(c *fiber.Ctx) error {
 	cubes, err := cube.GetCubes("TODO: User ID")
 
 	if err != nil {
-		return sendError(c, 500, err.Error())
+		return SendError(c, 500, err.Error())
 	}
 
 	return c.JSON(cubes)
@@ -21,12 +21,12 @@ func CreateCube(c *fiber.Ctx) error {
 	newCube := cube.Cube{}
 
 	if err := c.BodyParser(&newCube); err != nil {
-		return sendError(c, 500, err.Error())
+		return SendError(c, 500, err.Error())
 	}
 
 	result, err := newCube.CreateCube()
 	if err != nil {
-		return sendError(c, 500, err.Error())
+		return SendError(c, 500, err.Error())
 	}
 
 	return c.JSON(result)

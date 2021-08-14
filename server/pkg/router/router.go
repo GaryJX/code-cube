@@ -6,6 +6,7 @@ import (
 
 	"github.com/GaryJX/code-cube/pkg/config"
 	"github.com/GaryJX/code-cube/pkg/router/handler"
+	"github.com/GaryJX/code-cube/pkg/router/middleware"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
@@ -55,7 +56,7 @@ func (router *Router) setupRoutes() {
 	})
 
 	// TODO: Look into using middleware for auth (using Bearer token for Session token)
-	api := router.Group("/api")
+	api := router.Group("/api", middleware.Auth)
 
 	// TODO: Delete this test endpoint later
 	api.Get("/", func(c *fiber.Ctx) error {
