@@ -7,7 +7,6 @@ const useLocalStorage = (
   initialValue: string | (() => string)
 ): [string, Dispatch<SetStateAction<string>>] => {
   const prefixedKey = `${LOCAL_STORAGE_PREFIX}${key}`
-
   const [value, setValue] = useState('')
 
   useEffect(() => {

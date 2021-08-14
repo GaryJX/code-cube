@@ -1,40 +1,39 @@
-import { useEffect } from 'react'
-import { signIn, signOut, useSession } from 'next-auth/client'
-import { connectToDatabase } from 'util/db'
-import { useAxios } from '@/util/axiosConfig'
+import { useEffect, useRef } from 'react'
+import { signIn, useSession } from 'next-auth/client'
+import { useRouter } from 'next/dist/client/router'
+import Loading from '@/components/Loading/Loading'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
-const LoginPage: React.FC<any> = ({ user }) => {
+const LoginPage: React.FC = () => {
+  const router = useRouter()
   const [session, loading] = useSession()
-  const axios = useAxios((session as any)?.accessToken || '')
+  const [redirect, setRedirect] = useLocalStorage('login-redirect', '')
+  const redirectRef = useRef('/')
 
   useEffect(() => {
-    // Example to connect to backend server
-    axios
-      .get('/api')
-      .then((response) => {
-        console.log({ data: response.data })
-      })
-      .catch((err) => {
-        console.error({ err: err.response })
-      })
-  }, [axios])
+    if (redirect) {
+      redirectRef.current = redirect
+    }
+  }, [redirect])
 
+  useEffect(() => {
+    if (!loading && router.isReady) {
+      if (session) {
+        router.push(redirectRef.current)
+        setRedirect('')
+      }
+    }
+  }, [router, session, loading])
+
+  if (loading || session) {
+    return <Loading />
+  }
+
+  // TODO: Build Login/Signup modal
   return (
     <>
-      {!session && (
-        <>
-          Not signed in <br />
-          <button onClick={() => signIn('github')}>Sign in</button>
-        </>
-      )}
-      {session && (
-        <>
-          Signed in as {session.user?.name} <br />
-          <pre>{JSON.stringify(session, null, 2)}</pre>
-          <pre>{JSON.stringify(user, null, 2)}</pre>
-          <button onClick={() => signOut()}>Sign out</button>
-        </>
-      )}
+      Not signed in <br />
+      <button onClick={() => signIn('github')}>Sign in</button>
     </>
   )
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { signOut } from 'next-auth/client'
 
 const Editor: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const Editor: React.FC = () => {
       architecto. Numquam ducimus nemo, rerum delectus voluptates eius minima
       reiciendis deserunt in esse! Libero consequatur odit reiciendis quas.
       Beatae nulla reiciendis eaque rem tempora perferendis?
+      <button onClick={() => signOut()}>Sign out </button>
     </div>
   )
 }
