@@ -1,10 +1,11 @@
-package routes
+package router
 
 import (
 	"log"
 	"strings"
 
 	"github.com/GaryJX/code-cube/pkg/config"
+	"github.com/GaryJX/code-cube/pkg/router/handler"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
@@ -18,7 +19,6 @@ func NewRouter() *Router {
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: config.Env.ClientURL,
 	}))
-	// TODO: Look into using middleware for auth (using Bearer token for Session token)
 	router.setupRoutes()
 	return &router
 }
@@ -29,13 +29,6 @@ func (router *Router) Run(port string) {
 }
 
 func (router *Router) setupRoutes() {
-	// TODO
-	router.Get("/api", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{
-			"message": "Successfully reached API endpoint",
-		})
-	})
-
 	router.Get("/health", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
 			"message": "Server is up and running!",
@@ -61,12 +54,16 @@ func (router *Router) setupRoutes() {
 		})
 	})
 
-	router.Get("/api/cubes", getCubes)
-	router.Post("/api/cube", createCube)
-}
+	// TODO: Look into using middleware for auth (using Bearer token for Session token)
+	api := router.Group("/api")
 
-func sendError(c *fiber.Ctx, status int, err string) error {
-	return c.Status(status).JSON(fiber.Map{
-		"error": err,
+	// TODO: Delete this test endpoint later
+	api.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"message": "Successfully reached API endpoint",
+		})
 	})
+
+	api.Get("/cubes", handler.GetCubes)
+	api.Post("/cube", handler.CreateCube)
 }

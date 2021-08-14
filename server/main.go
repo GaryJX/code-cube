@@ -5,7 +5,7 @@ import (
 
 	"github.com/GaryJX/code-cube/pkg/config"
 	"github.com/GaryJX/code-cube/pkg/database"
-	"github.com/GaryJX/code-cube/pkg/routes"
+	"github.com/GaryJX/code-cube/pkg/router"
 )
 
 func main() {
@@ -19,6 +19,6 @@ func main() {
 		port = "8080"
 	}
 
-	router := routes.NewRouter()
+	router := router.NewRouter()
 	router.Run(port)
 }

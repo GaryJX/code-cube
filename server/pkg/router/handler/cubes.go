@@ -1,4 +1,4 @@
-package routes
+package handler
 
 import (
 	"github.com/GaryJX/code-cube/pkg/models/cube"
@@ -6,7 +6,7 @@ import (
 )
 
 // GET /api/cubes
-func getCubes(c *fiber.Ctx) error {
+func GetCubes(c *fiber.Ctx) error {
 	cubes, err := cube.GetCubes("TODO: User ID")
 
 	if err != nil {
@@ -17,7 +17,7 @@ func getCubes(c *fiber.Ctx) error {
 }
 
 // POST /api/cube
-func createCube(c *fiber.Ctx) error {
+func CreateCube(c *fiber.Ctx) error {
 	newCube := cube.Cube{}
 
 	if err := c.BodyParser(&newCube); err != nil {
