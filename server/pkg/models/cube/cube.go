@@ -22,12 +22,14 @@ type Cube struct {
 	Packages  []string           `json:"packages,omitempty" bson:"packages,omitempty"`
 }
 
+var collection = database.DB.Collection("cubes")
+
 func GetCubes(userId string) ([]Cube, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	// TODO: Use the userId when filtering for cubes
-	cursor, err := database.DB.Collection("cubes").Find(ctx, bson.M{})
+	cursor, err := collection.Find(ctx, bson.M{})
 	if err != nil {
 		return []Cube{}, err
 	}
@@ -48,6 +50,6 @@ func (cube *Cube) CreateCube() (*mongo.InsertOneResult, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	result, err := database.DB.Collection("cubes").InsertOne(ctx, cube)
+	result, err := collection.InsertOne(ctx, cube)
 	return result, err
 }
