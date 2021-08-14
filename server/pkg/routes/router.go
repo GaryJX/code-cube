@@ -18,6 +18,7 @@ func NewRouter() *Router {
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: config.Env.ClientURL,
 	}))
+	// TODO: Look into using middleware for auth (using Bearer token for Session token)
 	router.setupRoutes()
 	return &router
 }
