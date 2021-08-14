@@ -37,4 +37,6 @@ func SetupRoutes(app *fiber.App) {
 			"splitToken": splitToken[1],
 		})
 	})
+
+	app.Get("/api/cubes", GetCubes)
 }

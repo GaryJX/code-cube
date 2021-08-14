@@ -11,6 +11,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 type App struct {
@@ -39,6 +40,11 @@ func (app *App) InitializeDB(connectionURI string, dbName string) {
 		panic(err)
 	}
 	defer client.Disconnect(ctx)
+
+	// Testing connection (// TODO: Delete later)
+	if err = client.Ping(ctx, readpref.Primary()); err != nil {
+		panic(err)
+	}
 
 	app.DB = client.Database(dbName)
 }
