@@ -24,12 +24,15 @@ type Cube struct {
 
 var collection = "cubes"
 
-func GetCubes(userId string) ([]Cube, error) {
+// Get all cubes where for the specified creatorID
+func GetCubes(creatorID primitive.ObjectID) ([]Cube, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	// TODO: Use the userId when filtering for cubes
-	cursor, err := database.DB.Collection(collection).Find(ctx, bson.M{})
+	cursor, err := database.DB.Collection(collection).Find(ctx, bson.M{
+		"creatorID": creatorID,
+	})
+
 	if err != nil {
 		return []Cube{}, err
 	}
@@ -40,13 +43,6 @@ func GetCubes(userId string) ([]Cube, error) {
 }
 
 func (cube *Cube) CreateCube() (*mongo.InsertOneResult, error) {
-	// TODO: Move this to the CreateCube endpoint?
-	createdTime := time.Now()
-	cube.ID = primitive.NilObjectID
-	// cube.CreatorID = "TODO" // TODO: Include the CreatorID
-	cube.Created = primitive.NewDateTimeFromTime(createdTime)
-	cube.Updated = primitive.NewDateTimeFromTime(createdTime)
-
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
