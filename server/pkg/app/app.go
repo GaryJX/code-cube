@@ -1,7 +1,9 @@
 package app
 
 import (
+	"context"
 	"log"
+	"time"
 
 	"github.com/GaryJX/code-cube/pkg/config"
 	"github.com/GaryJX/code-cube/pkg/routes"
@@ -29,10 +31,14 @@ func (app *App) InitializeRouter() {
 }
 
 func (app *App) InitializeDB(connectionURI string, dbName string) {
-	client, err := mongo.NewClient(options.Client().ApplyURI(connectionURI))
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(connectionURI))
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
+	defer client.Disconnect(ctx)
 
 	app.DB = client.Database(dbName)
 }
