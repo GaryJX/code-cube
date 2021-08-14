@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import type { EditorProps } from '@/components/Editor/Editor'
 const Editor = dynamic(() => import('@/components/Editor/Editor'), {
   ssr: false,
+  loading: () => <Loading />,
 })
 
 const CubeEditorPage: React.FC = () => {
