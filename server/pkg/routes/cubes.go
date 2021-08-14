@@ -1,8 +1,6 @@
 package routes
 
 import (
-	"net/http"
-
 	"github.com/GaryJX/code-cube/pkg/models/cube"
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,9 +10,7 @@ func getCubes(c *fiber.Ctx) error {
 	cubes, err := cube.GetCubes("TODO: User ID")
 
 	if err != nil {
-		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
-			"error": err.Error(),
-		})
+		return sendError(c, 500, err.Error())
 	}
 
 	return c.JSON(cubes)
@@ -22,5 +18,16 @@ func getCubes(c *fiber.Ctx) error {
 
 // POST /api/cube
 func createCube(c *fiber.Ctx) error {
-	return c.JSON(fiber.Map{})
+	newCube := cube.Cube{}
+
+	if err := c.BodyParser(&newCube); err != nil {
+		return sendError(c, 500, err.Error())
+	}
+
+	result, err := newCube.CreateCube()
+	if err != nil {
+		return sendError(c, 500, err.Error())
+	}
+
+	return c.JSON(result)
 }

@@ -63,3 +63,9 @@ func (router *Router) setupRoutes() {
 	router.Get("/api/cubes", getCubes)
 	router.Post("/api/cube", createCube)
 }
+
+func sendError(c *fiber.Ctx, status int, err string) error {
+	return c.Status(status).JSON(fiber.Map{
+		"error": err,
+	})
+}
