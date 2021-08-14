@@ -20,7 +20,7 @@ func main() {
 
 	a := app.App{}
 	a.InitializeRouter()
-	// TODO: Add credentials for DB connection
-	a.InitializeDB()
+	// TODO: Use Env Variables for these parameters
+	a.InitializeDB("mongodb://localhost:27017", "codeCube")
 	a.Run(port)
 }
