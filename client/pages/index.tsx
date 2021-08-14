@@ -35,7 +35,7 @@ const IndexPage: React.FC = () => {
     return null
   }
 
-  // return <Loading />
+  return <Loading />
 
   return (
     <>
