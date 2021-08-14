@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"log"
 	"strings"
 
 	"github.com/GaryJX/code-cube/pkg/config"
@@ -21,7 +22,13 @@ func NewRouter() *Router {
 	return &router
 }
 
+func (router *Router) Run(port string) {
+	log.Println("Running server on port", port)
+	log.Fatal(router.Listen(":" + port))
+}
+
 func (router *Router) setupRoutes() {
+	// TODO
 	router.Get("/api", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
 			"message": "Successfully reached API endpoint",
@@ -55,3 +62,15 @@ func (router *Router) setupRoutes() {
 
 	router.Get("/api/cubes", getCubes)
 }
+
+// func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+// 	response, _ := json.MarshalIndent(payload, "", "  ")
+
+// 	w.Header().Set("Content-Type", "application/json")
+// 	w.WriteHeader(code)
+// 	w.Write(response)
+// }
+
+// func respondWithError(w http.ResponseWriter, code int, message string) {
+// 	respondWithJSON(w, code, map[string]string{"error": message})
+// }

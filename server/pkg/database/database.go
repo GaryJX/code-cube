@@ -18,7 +18,6 @@ func InitializeDB(connectionURI string, dbName string) {
 	if err != nil {
 		panic(err)
 	}
-	defer client.Disconnect(ctx)
 
 	DB = client.Database(dbName)
 }
