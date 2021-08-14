@@ -1,4 +1,4 @@
-package models
+package cube
 
 import (
 	"context"
@@ -11,7 +11,7 @@ import (
 type Cube struct {
 }
 
-func (c *Cube) GetCubes(userId string) ([]Cube, error) {
+func GetCubes(userId string) ([]Cube, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 

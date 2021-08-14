@@ -61,16 +61,5 @@ func (router *Router) setupRoutes() {
 	})
 
 	router.Get("/api/cubes", getCubes)
+	router.Post("/api/cube", createCube)
 }
-
-// func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
-// 	response, _ := json.MarshalIndent(payload, "", "  ")
-
-// 	w.Header().Set("Content-Type", "application/json")
-// 	w.WriteHeader(code)
-// 	w.Write(response)
-// }
-
-// func respondWithError(w http.ResponseWriter, code int, message string) {
-// 	respondWithJSON(w, code, map[string]string{"error": message})
-// }

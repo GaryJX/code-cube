@@ -3,13 +3,13 @@ package routes
 import (
 	"net/http"
 
-	"github.com/GaryJX/code-cube/pkg/models"
+	"github.com/GaryJX/code-cube/pkg/models/cube"
 	"github.com/gofiber/fiber/v2"
 )
 
+// GET /api/cubes
 func getCubes(c *fiber.Ctx) error {
-	cubeModel := models.Cube{}
-	cubes, err := cubeModel.GetCubes("TODO: User ID")
+	cubes, err := cube.GetCubes("TODO: User ID")
 
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
@@ -18,8 +18,9 @@ func getCubes(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(cubes)
+}
 
-	// return c.JSON(fiber.Map{
-	// 	"message": "Hit GetCubes Endpoint!",
-	// })
+// POST /api/cube
+func createCube(c *fiber.Ctx) error {
+	return c.JSON(fiber.Map{})
 }
