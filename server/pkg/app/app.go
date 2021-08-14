@@ -5,29 +5,19 @@ import (
 	"log"
 	"time"
 
-	"github.com/GaryJX/code-cube/pkg/config"
 	"github.com/GaryJX/code-cube/pkg/routes"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 type App struct {
-	Router *fiber.App
+	Router *routes.Router
 	DB     *mongo.Database
 }
 
 func (app *App) InitializeRouter() {
-	router := fiber.New()
-
-	router.Use(cors.New(cors.Config{
-		AllowOrigins: config.Env.ClientUrl,
-	}))
-
-	routes.SetupRoutes(router)
-
+	router := routes.NewRouter()
 	app.Router = router
 }
 
