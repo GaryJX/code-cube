@@ -22,7 +22,6 @@ func (c *Cube) GetCubes(db *mongo.Database, userId string) ([]Cube, error) {
 	}
 
 	var cubes []Cube
-
 	err = cursor.All(ctx, &cubes)
 	return cubes, err
 }

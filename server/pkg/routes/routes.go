@@ -17,11 +17,11 @@ func NewRouter() *Router {
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: config.Env.ClientUrl,
 	}))
-	router.SetupRoutes()
+	router.setupRoutes()
 	return &router
 }
 
-func (router *Router) SetupRoutes() {
+func (router *Router) setupRoutes() {
 	router.Get("/api", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
 			"message": "Successfully reached API endpoint",
@@ -53,5 +53,5 @@ func (router *Router) SetupRoutes() {
 		})
 	})
 
-	router.Get("/api/cubes", GetCubes)
+	router.Get("/api/cubes", getCubes)
 }

@@ -5,12 +5,13 @@ import (
 
 	"github.com/GaryJX/code-cube/pkg/app"
 	"github.com/GaryJX/code-cube/pkg/config"
+	"github.com/GaryJX/code-cube/pkg/database"
 )
 
 func main() {
 	config.SetupConfig()
-	// TODO: Delete this commented out code later
-	// log.Println(config.Env.ClientUrl)
+	// TODO: Use Env Variables for these parameters
+	database.InitializeDB("mongodb://localhost:27017", "codeCube")
 
 	port := os.Getenv("PORT")
 	// Default port in development
@@ -20,7 +21,6 @@ func main() {
 
 	a := app.App{}
 	a.InitializeRouter()
-	// TODO: Use Env Variables for these parameters
-	a.InitializeDB("mongodb://localhost:27017", "codeCube")
+	// a.InitializeDB("mongodb://localhost:27017", "codeCube")
 	a.Run(port)
 }
