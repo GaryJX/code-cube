@@ -15,18 +15,18 @@ type Session struct {
 	Expires      primitive.DateTime `json:"expires,omitempty" bson:"expires,omitempty"`
 	SessionToken string             `json:"sessionToken,omitempty" bson:"sessionToken,omitempty"`
 	AccessToken  string             `json:"accessToken,omitempty" bson:"accessToken,omitempty"`
-	CreatedAt    primitive.ObjectID `json:"createdAt,omitempty" bson:"createdAt,omitempty"`
-	UpdatedAt    primitive.ObjectID `json:"updatedAt,omitempty" bson:"updatedAt,omitempty"`
+	CreatedAt    primitive.DateTime `json:"createdAt,omitempty" bson:"createdAt,omitempty"`
+	UpdatedAt    primitive.DateTime `json:"updatedAt,omitempty" bson:"updatedAt,omitempty"`
 }
 
-var collection = database.DB.Collection("sessions")
+var collection = "sessions"
 
 func GetSession(accessToken string) (Session, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	var session Session
-	err := collection.FindOne(ctx, bson.M{"accessToken": accessToken}).Decode(&session)
+	err := database.DB.Collection(collection).FindOne(ctx, bson.M{"accessToken": accessToken}).Decode(&session)
 
 	return session, err
 }

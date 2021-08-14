@@ -10,7 +10,7 @@ const LoginPage: React.FC<any> = ({ user }) => {
   useEffect(() => {
     // Example to connect to backend server
     axios
-      .get('/test')
+      .get('/api')
       .then((response) => {
         console.log({ data: response.data })
       })
