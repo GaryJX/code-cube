@@ -7,14 +7,14 @@ import { useState } from 'react'
 import { Controlled as ControlledEditor } from 'react-codemirror2'
 import { FaCompressAlt, FaExpandAlt } from 'react-icons/fa'
 
-type EditorProps = {
+type CodeEditorProps = {
   displayName: string
   language: 'xml' | 'javascript' | 'css'
   value: string
   onChange: (value: string) => void
 }
 
-const Editor: React.FC<EditorProps> = (props) => {
+const CodeEditor: React.FC<CodeEditorProps> = (props) => {
   const { displayName, language, value, onChange } = props
   const [open, setOpen] = useState(true)
 
@@ -50,4 +50,4 @@ const Editor: React.FC<EditorProps> = (props) => {
   )
 }
 
-export default Editor
+export default CodeEditor

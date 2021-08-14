@@ -1,27 +1,71 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { signOut } from 'next-auth/client'
+import { useEffect } from 'react'
+import CodeEditor from '../CodeEditor/CodeEditor'
 
-const Editor: React.FC = () => {
+export type EditorProps = {
+  html: string
+  css: string
+  js: string
+  packages: string[]
+}
+
+const Editor: React.FC<EditorProps> = (props) => {
+  const [html, setHtml] = useState(props.html)
+  const [css, setCss] = useState(props.css)
+  const [js, setJs] = useState(props.js)
+  const [packages, setPackages] = useState(props.packages)
+  const [srcDoc, setSrcDoc] = useState('')
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSrcDoc(`
+        <html>
+          <body>${html}</body>
+          <style>${css}</style>
+          <script>${js}</script>
+        </html>
+      `)
+    }, 250)
+
+    return () => clearTimeout(timeout)
+  }, [html, css, js])
+
   return (
-    <div>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda quia
-      similique id saepe quidem possimus recusandae earum nesciunt dolores!
-      Consectetur tenetur eos ipsam eius libero, consequuntur molestiae sed amet
-      incidunt molestias, doloribus, aliquid atque quisquam! Doloremque pariatur
-      veniam libero officiis voluptatem nostrum perspiciatis voluptate! Nihil
-      sit quae vel eum eveniet! Accusantium porro perspiciatis possimus nemo.
-      Facere earum dolor veritatis hic voluptates rerum qui, cum atque
-      temporibus eligendi quidem tempore, aliquam nisi id. Vero, quasi
-      repellendus! Architecto odit dolores saepe molestiae ad, consequatur
-      maiores similique, aspernatur iusto voluptatem temporibus provident dolore
-      tempore reprehenderit! Perspiciatis, hic ducimus soluta nesciunt adipisci
-      distinctio fugit odio, dicta assumenda, ratione deserunt nam molestias
-      incidunt explicabo quae alias cum ut fugiat iste omnis accusantium esse
-      architecto. Numquam ducimus nemo, rerum delectus voluptates eius minima
-      reiciendis deserunt in esse! Libero consequatur odit reiciendis quas.
-      Beatae nulla reiciendis eaque rem tempora perferendis?
-      <button onClick={() => signOut()}>Sign out </button>
-    </div>
+    <>
+      <div className="pane top-pane" suppressHydrationWarning={true}>
+        <button onClick={() => signOut()}>Sign out </button>
+
+        <CodeEditor
+          language="xml"
+          displayName="HTML"
+          value={html}
+          onChange={setHtml}
+        />
+        <CodeEditor
+          language="css"
+          displayName="CSS"
+          value={css}
+          onChange={setCss}
+        />
+        <CodeEditor
+          language="javascript"
+          displayName="JS"
+          value={js}
+          onChange={setJs}
+        />
+      </div>
+      <div className="pane">
+        <iframe
+          srcDoc={srcDoc}
+          title="code-cube-sandbox"
+          style={{ border: 'none' }}
+          sandbox="allow-scripts"
+          width="100%"
+          height="100%"
+        />
+      </div>
+    </>
   )
 }
 

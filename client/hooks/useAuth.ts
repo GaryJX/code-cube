@@ -4,7 +4,12 @@ import { useRouter } from 'next/dist/client/router'
 import { Session } from 'next-auth'
 import useLocalStorage from './useLocalStorage'
 
-const useAuth = (): [Session | null, boolean] => {
+export type AuthSession = Session & {
+  accessToken: string
+  expires: string
+}
+
+const useAuth = (): [AuthSession | null, boolean] => {
   const router = useRouter()
   const [session, loading] = useSession()
   const [value, setValue] = useLocalStorage('login-redirect', '')
@@ -19,7 +24,7 @@ const useAuth = (): [Session | null, boolean] => {
     }
   }, [router, session, loading])
 
-  return [session, isLoading || !session]
+  return [session as AuthSession, isLoading || !session]
 }
 
 export default useAuth
