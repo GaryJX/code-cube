@@ -74,8 +74,38 @@ func GetCube(c *fiber.Ctx) error {
 
 // PUT /api/cube/:id
 func UpdateCube(c *fiber.Ctx) error {
+	cubeID, err := primitive.ObjectIDFromHex(c.Params("id"))
+	if err != nil {
+		log.Println(err)
+		// Not a valid ID format, so return 404 error message
+		return sendError(c, 404, "Cube not found")
+	}
+
+	foundCube, err := cube.GetCube(cubeID)
+	if err != nil {
+		if err.Error() == "mongo: no documents in result" {
+			return sendError(c, 404, "Cube not found")
+		} else {
+			return sendError(c, 500, err.Error())
+		}
+	}
+
+	if foundCube.CreatorID != middleware.GetUserID(c) {
+		return sendError(c, 403, "You do not have permission to access this cube")
+	}
+
+	if err := c.BodyParser(&foundCube); err != nil {
+		return sendError(c, 500, err.Error())
+	}
+
+	// TODO: Update Cube here
+	_, err = foundCube.UpdateCube()
+	if err != nil {
+		return sendError(c, 500, err.Error())
+	}
+
 	return c.JSON(fiber.Map{
-		"message": "TODO",
+		"message": "Successfully updated cube",
 	})
 }
 

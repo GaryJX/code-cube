@@ -61,3 +61,34 @@ func (cube *Cube) CreateCube() (*mongo.InsertOneResult, error) {
 	result, err := database.DB.Collection(collection).InsertOne(ctx, cube)
 	return result, err
 }
+
+func (cube *Cube) UpdateCube() (*mongo.UpdateResult, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	result, err := database.DB.Collection(collection).UpdateOne(
+		ctx,
+		bson.M{"_id": cube.ID},
+		bson.D{
+			{"$set", bson.D{
+				{"updated", primitive.NewDateTimeFromTime(time.Now())},
+				{"name", cube.Name},
+				{"html", cube.Html},
+				{"css", cube.Css},
+				{"js", cube.Js},
+				{"packages", cube.Packages},
+			}},
+		},
+	)
+	return result, err
+}
+
+// func (cube *Cube) DeleteCube() (*mongo.InsertOneResult, error) {
+// 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+// 	defer cancel()
+
+// 	// TODO: Implement Delete functionality
+// 	// result, err := database.DB.Collection(collection).InsertOne(ctx, cube)
+// 	// return result, err
+// 	return nil, nil
+// }
