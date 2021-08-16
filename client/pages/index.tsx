@@ -55,6 +55,11 @@ const IndexPage: React.FC = () => {
     }
   }
 
+  const createNewCube = () => {
+    // TODO: Create a new Untitled Cube and redirect to that page
+    serverAxios.post('/api/cube', {})
+  }
+
   if (sessionLoading || loading) {
     return <Loading />
   }
@@ -63,7 +68,7 @@ const IndexPage: React.FC = () => {
     <Layout>
       <div>
         <div>
-          <button>Create New Cube</button>
+          <button onClick={createNewCube}>Create New Cube</button>
         </div>
         {cubes.map((cube) => (
           <div key={cube._id}>
