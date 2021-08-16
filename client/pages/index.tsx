@@ -33,7 +33,7 @@ const IndexPage: React.FC = () => {
         .get('/api/cubes')
         .then((response) => {
           console.log({ data: response.data })
-          setCubes(response.data)
+          setCubes(response.data || [])
           setLoading(false)
         })
         .catch((error) => {
