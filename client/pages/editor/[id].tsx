@@ -7,7 +7,9 @@ import type { EditorProps } from '@/components/Editor/Editor'
 import { useRouter } from 'next/dist/client/router'
 const Editor = dynamic(() => import('@/components/Editor/Editor'), {
   ssr: false,
-  loading: () => <Loading />,
+  loading() {
+    return <Loading />
+  },
 })
 
 const CubeEditorPage: React.FC = () => {
