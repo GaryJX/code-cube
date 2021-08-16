@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "codemirror": "^5.62.2",
+    "mongodb": "^3.6.10",
     "next": "11.0.1",
     "next-auth": "^3.27.3",
     "react": "17.0.2",
@@ -20,6 +21,7 @@
     "sass": "^1.37.5"
   },
   "devDependencies": {
+    "@types/mongodb": "^3.6.20",
     "@types/react": "17.0.11",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",
