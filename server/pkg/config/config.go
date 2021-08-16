@@ -19,10 +19,9 @@ func SetupConfig() {
 	godotenv.Load()
 
 	Env = EnvVar{
-		ClientURL: os.Getenv("CLIENT_URL"),
-		// TODO: Use Env Variables for these parameters
-		DatabaseURI:  "mongodb://localhost:27017",
-		DatabaseName: "codeCube",
+		ClientURL:    os.Getenv("CLIENT_URL"),
+		DatabaseURI:  os.Getenv("DB_URI"),
+		DatabaseName: os.Getenv("DB_NAME"),
 		Port:         os.Getenv("PORT"),
 	}
 }
