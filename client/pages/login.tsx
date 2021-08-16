@@ -1,8 +1,10 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { signIn, useSession } from 'next-auth/client'
 import { useRouter } from 'next/dist/client/router'
 import Loading from '@/components/Loading/Loading'
 import useLocalStorage from '@/hooks/useLocalStorage'
+import { Container, Flex, Heading, Button } from '@chakra-ui/react'
+import SignInButton from '@/components/SignInButton/SignInButton'
 
 const LoginPage: React.FC = () => {
   const router = useRouter()
@@ -31,10 +33,22 @@ const LoginPage: React.FC = () => {
 
   // TODO: Build Login/Signup modal
   return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn('github')}>Sign in</button>
-    </>
+    <Flex alignItems="center" justifyContent="center" height="100vh">
+      <Container
+        boxShadow="md"
+        backgroundColor="#303030"
+        borderRadius="base"
+        padding="2rem"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        gridGap="1rem"
+      >
+        <Heading>Code Cube</Heading>
+        <SignInButton provider="GitHub" />
+        <SignInButton provider="Google" />
+      </Container>
+    </Flex>
   )
 }
 

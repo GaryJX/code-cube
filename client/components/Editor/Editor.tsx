@@ -45,8 +45,6 @@ const Editor: React.FC<EditorProps> = (props) => {
   return (
     <>
       <div className="pane top-pane" suppressHydrationWarning={true}>
-        <button onClick={() => signOut()}>Sign out </button>
-
         <CodeEditor
           language="xml"
           displayName="HTML"

@@ -4,6 +4,7 @@ import { AppProps } from 'next/app'
 import { Provider } from 'next-auth/client'
 import useServerAxios from '@/hooks/useServerAxios'
 import '@/styles/globals.scss'
+import { ChakraProvider } from '@chakra-ui/react'
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [serverAxios] = useServerAxios()
@@ -19,7 +20,9 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         <title>Code Code</title>
       </Head>
       <Provider session={pageProps.session}>
-        <Component {...pageProps} />
+        <ChakraProvider>
+          <Component {...pageProps} />
+        </ChakraProvider>
       </Provider>
     </>
   )
