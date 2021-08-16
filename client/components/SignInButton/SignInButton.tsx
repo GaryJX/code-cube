@@ -1,12 +1,17 @@
 import React from 'react'
 import { Button } from '@chakra-ui/react'
-import { signIn } from 'next-auth/client'
+import { signIn, signOut } from 'next-auth/client'
 
 type SignInButtonProps = {
   provider: string
 }
 
 const SignInButton: React.FC<SignInButtonProps> = ({ provider }) => {
+  const testSignIn = () => {
+    signIn('github')
+      .then((response) => console.log({ data: response }))
+      .catch((error) => console.error({ error }))
+  }
   return (
     <Button
       borderRadius="base"
@@ -15,7 +20,7 @@ const SignInButton: React.FC<SignInButtonProps> = ({ provider }) => {
       _hover={{
         backgroundColor: '#555555',
       }}
-      onClick={() => signIn('github')}
+      onClick={() => testSignIn()}
     >
       Sign in with {provider}
     </Button>
