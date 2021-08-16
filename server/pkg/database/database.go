@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"log"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -11,6 +12,8 @@ import (
 var DB *mongo.Database
 
 func InitializeDB(connectionURI string, dbName string) {
+	log.Println(connectionURI)
+	log.Println(dbName)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
