@@ -14,6 +14,10 @@ export default NextAuth({
       clientId: Config.githubClientID,
       clientSecret: Config.githubClientSecret,
     }),
+    Providers.Google({
+      clientId: Config.googleClientID,
+      clientSecret: Config.googleClientSecret,
+    }),
     // ...add more providers here
   ],
 

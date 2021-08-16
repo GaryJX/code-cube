@@ -3,12 +3,12 @@ import { Button } from '@chakra-ui/react'
 import { signIn, signOut } from 'next-auth/client'
 
 type SignInButtonProps = {
-  provider: string
+  provider: 'github' | 'google'
 }
 
 const SignInButton: React.FC<SignInButtonProps> = ({ provider }) => {
   const testSignIn = () => {
-    signIn('github')
+    signIn(provider)
       .then((response) => console.log({ data: response }))
       .catch((error) => console.error({ error }))
   }

@@ -45,8 +45,8 @@ const LoginPage: React.FC = () => {
         gridGap="1rem"
       >
         <Heading>Code Cube</Heading>
-        <SignInButton provider="GitHub" />
-        <SignInButton provider="Google" />
+        <SignInButton provider="github" />
+        <SignInButton provider="google" />
       </Container>
     </Flex>
   )
