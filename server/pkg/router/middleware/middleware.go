@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"log"
 	"strings"
 
 	"github.com/GaryJX/code-cube/pkg/models/session"
@@ -22,6 +23,7 @@ func Auth(c *fiber.Ctx) error {
 
 	userSession, err := session.GetSession(accessToken)
 	if err != nil {
+		log.Println(err)
 		return sendError(c, 401, "Session not found, please log in")
 	}
 
