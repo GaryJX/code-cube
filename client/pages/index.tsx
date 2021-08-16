@@ -8,7 +8,7 @@ import useAuth from '@/hooks/useAuth'
 import useServerAxios from '@/hooks/useServerAxios'
 import Layout from '@/components/Layout/Layout'
 
-type Cube = {
+export type Cube = {
   _id: string
   creatorID: string
   created: string

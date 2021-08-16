@@ -4,17 +4,24 @@ import Loading from '@/components/Loading/Loading'
 import useServerAxios from '@/hooks/useServerAxios'
 import dynamic from 'next/dynamic'
 import type { EditorProps } from '@/components/Editor/Editor'
+import { useRouter } from 'next/dist/client/router'
 const Editor = dynamic(() => import('@/components/Editor/Editor'), {
   ssr: false,
   loading: () => <Loading />,
 })
 
 const CubeEditorPage: React.FC = () => {
+  const router = useRouter()
   const [session, sessionLoading] = useAuth()
   const [serverAxios, axiosLoading] = useServerAxios()
   // TODO: Look into implementing the useApiResource hook I made for TI
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState<EditorProps>({
+  const [data, setData] = useState<{
+    html: string
+    css: string
+    js: string
+    packages: string[]
+  }>({
     html: '',
     css: '',
     js: '',
@@ -22,10 +29,38 @@ const CubeEditorPage: React.FC = () => {
   })
 
   useEffect(() => {
-    if (!axiosLoading) {
-      // serverAxios.get("/api/").then(() => setLoading(false))
+    if (!axiosLoading && router.isReady) {
+      serverAxios
+        .get(`/api/cube/${router.query.id}`)
+        .then((response) => {
+          console.log({ data: response.data })
+          const { html = '', css = '', js = '', packages = [] } = response.data
+
+          setData({
+            html,
+            css,
+            js,
+            packages,
+          })
+          setLoading(false)
+        })
+        .catch((error) => {
+          console.error({ error })
+        })
     }
-  }, [axiosLoading])
+  }, [axiosLoading, router])
+
+  useEffect(() => {
+    console.log({ data })
+    serverAxios
+      .put(`/api/cube/${router.query.id}`, data)
+      .then((response) => {
+        console.log({ responseData: response.data })
+      })
+      .catch((error) => {
+        console.error({ error })
+      })
+  }, [data])
 
   if (sessionLoading || loading) {
     return <Loading />
@@ -37,6 +72,7 @@ const CubeEditorPage: React.FC = () => {
       css={data.css}
       js={data.js}
       packages={data.packages}
+      update={setData}
     />
   )
 }

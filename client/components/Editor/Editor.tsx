@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { signOut } from 'next-auth/client'
-import { useEffect } from 'react'
 import CodeEditor from '../CodeEditor/CodeEditor'
 
 export type EditorProps = {
@@ -8,6 +7,14 @@ export type EditorProps = {
   css: string
   js: string
   packages: string[]
+  update: Dispatch<
+    SetStateAction<{
+      html: string
+      css: string
+      js: string
+      packages: string[]
+    }>
+  >
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
@@ -26,10 +33,16 @@ const Editor: React.FC<EditorProps> = (props) => {
           <script>${js}</script>
         </html>
       `)
-    }, 250)
+      props.update({
+        html,
+        css,
+        js,
+        packages,
+      })
+    }, 500)
 
     return () => clearTimeout(timeout)
-  }, [html, css, js])
+  }, [html, css, js, packages])
 
   return (
     <>
