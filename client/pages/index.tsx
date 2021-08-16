@@ -66,7 +66,7 @@ const IndexPage: React.FC = () => {
           <button>Create New Cube</button>
         </div>
         {cubes.map((cube) => (
-          <div>
+          <div key={cube._id}>
             <a href={`/editor/${cube._id}`}>
               <h2>Title: {cube.name}</h2>
             </a>
