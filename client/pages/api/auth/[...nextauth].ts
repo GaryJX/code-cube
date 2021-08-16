@@ -2,6 +2,11 @@ import Config from '@/config/config'
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 
+console.log({
+  clientId: Config.githubClientID,
+  clientSecret: Config.githubClientSecret,
+})
+
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
