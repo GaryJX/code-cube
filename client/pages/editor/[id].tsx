@@ -30,6 +30,7 @@ const CubeEditorPage: React.FC = () => {
 
   useEffect(() => {
     if (!axiosLoading && router.isReady) {
+      console.log('@@ FETCHING DATA')
       serverAxios
         .get(`/api/cube/${router.query.id}`)
         .then((response) => {
@@ -50,8 +51,15 @@ const CubeEditorPage: React.FC = () => {
     }
   }, [axiosLoading, router])
 
-  useEffect(() => {
+  const updateData = (data: {
+    html: string
+    css: string
+    js: string
+    packages: string[]
+  }) => {
     console.log({ data })
+
+    setData(data)
     serverAxios
       .put(`/api/cube/${router.query.id}`, data)
       .then((response) => {
@@ -60,7 +68,7 @@ const CubeEditorPage: React.FC = () => {
       .catch((error) => {
         console.error({ error })
       })
-  }, [data])
+  }
 
   if (sessionLoading || loading) {
     return <Loading />
@@ -72,7 +80,7 @@ const CubeEditorPage: React.FC = () => {
       css={data.css}
       js={data.js}
       packages={data.packages}
-      update={setData}
+      update={updateData}
     />
   )
 }

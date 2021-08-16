@@ -7,14 +7,12 @@ export type EditorProps = {
   css: string
   js: string
   packages: string[]
-  update: Dispatch<
-    SetStateAction<{
-      html: string
-      css: string
-      js: string
-      packages: string[]
-    }>
-  >
+  update: (data: {
+    html: string
+    css: string
+    js: string
+    packages: string[]
+  }) => void
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
