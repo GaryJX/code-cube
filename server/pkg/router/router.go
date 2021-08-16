@@ -67,4 +67,7 @@ func (router *Router) setupRoutes() {
 
 	api.Get("/cubes", handler.GetCubes)
 	api.Post("/cube", handler.CreateCube)
+	api.Get("/cube/:id", handler.GetCube)
+	api.Put("/cube/:id", handler.UpdateCube)
+	api.Delete("/cube/:id", handler.DeleteCube)
 }
