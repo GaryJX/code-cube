@@ -47,6 +47,7 @@ func CreateCube(c *fiber.Ctx) error {
 	return c.JSON(result)
 }
 
+// TODO: Create a custom API group for /api/cube to include validation for Cubes and storing it in a Locals
 // GET /api/cube/:id
 func GetCube(c *fiber.Ctx) error {
 	cubeID, err := primitive.ObjectIDFromHex(c.Params("id"))
@@ -91,14 +92,13 @@ func UpdateCube(c *fiber.Ctx) error {
 	}
 
 	if foundCube.CreatorID != middleware.GetUserID(c) {
-		return sendError(c, 403, "You do not have permission to access this cube")
+		return sendError(c, 403, "You do not have permission to update this cube")
 	}
 
 	if err := c.BodyParser(&foundCube); err != nil {
 		return sendError(c, 500, err.Error())
 	}
 
-	// TODO: Update Cube here
 	_, err = foundCube.UpdateCube()
 	if err != nil {
 		return sendError(c, 500, err.Error())
@@ -111,7 +111,32 @@ func UpdateCube(c *fiber.Ctx) error {
 
 // DELETE /api/cube/:id
 func DeleteCube(c *fiber.Ctx) error {
+	cubeID, err := primitive.ObjectIDFromHex(c.Params("id"))
+	if err != nil {
+		log.Println(err)
+		// Not a valid ID format, so return 404 error message
+		return sendError(c, 404, "Cube not found")
+	}
+
+	foundCube, err := cube.GetCube(cubeID)
+	if err != nil {
+		if err.Error() == "mongo: no documents in result" {
+			return sendError(c, 404, "Cube not found")
+		} else {
+			return sendError(c, 500, err.Error())
+		}
+	}
+
+	if foundCube.CreatorID != middleware.GetUserID(c) {
+		return sendError(c, 403, "You do not have permission to delete this cube")
+	}
+
+	_, err = foundCube.DeleteCube()
+	if err != nil {
+		return sendError(c, 500, err.Error())
+	}
+
 	return c.JSON(fiber.Map{
-		"message": "TODO",
+		"message": "Successfully deleted cube",
 	})
 }

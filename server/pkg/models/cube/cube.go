@@ -83,12 +83,12 @@ func (cube *Cube) UpdateCube() (*mongo.UpdateResult, error) {
 	return result, err
 }
 
-// func (cube *Cube) DeleteCube() (*mongo.InsertOneResult, error) {
-// 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-// 	defer cancel()
+func (cube *Cube) DeleteCube() (*mongo.DeleteResult, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
-// 	// TODO: Implement Delete functionality
-// 	// result, err := database.DB.Collection(collection).InsertOne(ctx, cube)
-// 	// return result, err
-// 	return nil, nil
-// }
+	result, err := database.DB.Collection(collection).DeleteOne(ctx, bson.M{
+		"_id": cube.ID,
+	})
+	return result, err
+}
