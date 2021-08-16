@@ -42,6 +42,18 @@ func GetCubes(creatorID primitive.ObjectID) ([]Cube, error) {
 	return cubes, err
 }
 
+func GetCube(cubeID primitive.ObjectID) (Cube, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	cube := Cube{}
+	err := database.DB.Collection(collection).FindOne(ctx, bson.M{
+		"_id": cubeID,
+	}).Decode(&cube)
+
+	return cube, err
+}
+
 func (cube *Cube) CreateCube() (*mongo.InsertOneResult, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
