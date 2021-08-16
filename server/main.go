@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	"github.com/GaryJX/code-cube/pkg/config"
 	"github.com/GaryJX/code-cube/pkg/database"
@@ -10,6 +11,9 @@ import (
 
 func main() {
 	config.SetupConfig()
+	log.Println("@@@")
+	log.Println(config.Env.DatabaseURI)
+	log.Println(config.Env.DatabaseName)
 	database.InitializeDB(config.Env.DatabaseURI, config.Env.DatabaseName)
 	defer database.DB.Client().Disconnect(context.Background())
 
