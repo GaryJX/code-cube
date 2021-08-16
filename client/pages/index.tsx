@@ -42,6 +42,19 @@ const IndexPage: React.FC = () => {
     }
   }, [axiosLoading])
 
+  const handleDelete = (cubeID: string) => {
+    if (window.confirm('Are you sure you want to delete this cube?')) {
+      serverAxios
+        .delete(`/api/cube/${cubeID}`)
+        .then((response) => {
+          console.log({ data: response.data })
+        })
+        .catch((error) => {
+          console.error({ error })
+        })
+    }
+  }
+
   if (sessionLoading || loading) {
     return <Loading />
   }
@@ -59,6 +72,7 @@ const IndexPage: React.FC = () => {
             </a>
             <p>Created: {cube.created}</p>
             <p>Updated: {cube.updated}</p>
+            <button onClick={() => handleDelete(cube._id)}>Delete Cube</button>
           </div>
         ))}
       </div>
