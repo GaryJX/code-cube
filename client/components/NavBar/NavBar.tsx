@@ -29,7 +29,12 @@ const NavBar: React.FC<{ autoSave?: boolean; logout?: boolean }> = ({
       </Flex>
       <Flex alignItems="center" gridGap="1rem">
         {autoSave && (
-          <Flex alignItems="center" gridGap="0.5rem" paddingY="0.5rem">
+          <Flex
+            alignItems="center"
+            gridGap="0.5rem"
+            paddingY="0.5rem"
+            color="green.400"
+          >
             <FaRegCheckCircle />
             Auto saved
           </Flex>
