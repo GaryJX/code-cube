@@ -68,7 +68,9 @@ const Editor: React.FC<EditorProps> = (props) => {
   }, [editingName])
 
   useEffect(() => {
-    nameContainerRef.current!.style.width = `calc(${name.length}ch - ${name.length}px)`
+    nameContainerRef.current!.style.width = `calc(${name.length}ch - ${
+      name.length / 2
+    }px)`
   }, [name])
 
   return (
