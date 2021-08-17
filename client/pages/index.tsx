@@ -109,7 +109,7 @@ const IndexPage: React.FC = () => {
           <Tbody>
             {cubes.length > 0 ? (
               cubes.map((cube) => (
-                <Tr>
+                <Tr key={cube._id}>
                   <Td>
                     <NextLink href={`/editor/${cube._id}`}>
                       <Link color="blue.300">{cube.name}</Link>
