@@ -52,8 +52,9 @@ const LoginPage: React.FC = () => {
         flexDirection="column"
         alignItems="center"
         gridGap="1rem"
+        maxWidth="50ch"
       >
-        <Heading>Code Cube</Heading>
+        <Heading marginBottom="1rem">Code Cube</Heading>
         <SignInButton provider="github" />
         <SignInButton provider="google" />
         <NextLink href="/editor/guest">
