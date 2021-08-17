@@ -3,7 +3,16 @@ import { signIn, useSession } from 'next-auth/client'
 import { useRouter } from 'next/dist/client/router'
 import Loading from '@/components/Loading/Loading'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import { Container, Flex, Heading, Button } from '@chakra-ui/react'
+import {
+  Container,
+  Flex,
+  Heading,
+  Button,
+  Text,
+  Tooltip,
+  Link,
+} from '@chakra-ui/react'
+import NextLink from 'next/link'
 import SignInButton from '@/components/SignInButton/SignInButton'
 
 const LoginPage: React.FC = () => {
@@ -47,16 +56,16 @@ const LoginPage: React.FC = () => {
         <Heading>Code Cube</Heading>
         <SignInButton provider="github" />
         <SignInButton provider="google" />
+        <NextLink href="/editor/guest">
+          <Link>
+            <Tooltip label="Guest users can use the code editor, but your data will only be saved to your local machine.">
+              Try out the code editor as a guest
+            </Tooltip>
+          </Link>
+        </NextLink>
       </Container>
     </Flex>
   )
 }
 
 export default LoginPage
-
-// TODO: Delete this logic eventually
-export const getStaticProps = async () => {
-  // const { db } = await connectToDatabase()
-  // const user = await db.collection('users').findOne({ name: 'Gary Xie' })
-  return { props: { user: JSON.parse(JSON.stringify({ name: 'Gary Xie' })) } }
-}
