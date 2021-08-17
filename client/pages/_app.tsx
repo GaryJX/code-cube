@@ -17,7 +17,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Code Code</title>
+        <title>Code Cube</title>
       </Head>
       <Provider session={pageProps.session}>
         <ChakraProvider>
