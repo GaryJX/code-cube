@@ -2,8 +2,13 @@ import { Box, Button, Flex } from '@chakra-ui/react'
 import { signOut } from 'next-auth/client'
 import React from 'react'
 import Link from 'next/link'
+import { FaRegCheckCircle } from 'react-icons/fa'
 
-const NavBar: React.FC = ({ children }) => {
+const NavBar: React.FC<{ autoSave?: boolean; logout?: boolean }> = ({
+  children,
+  autoSave = false,
+  logout = true,
+}) => {
   return (
     <Flex justifyContent="space-between" padding="0.5rem 1rem">
       <Flex alignItems="center" gridGap="1rem">
@@ -22,15 +27,25 @@ const NavBar: React.FC = ({ children }) => {
         </Link>
         {children}
       </Flex>
-      <Button
-        onClick={() => signOut()}
-        backgroundColor="#444444"
-        _hover={{
-          backgroundColor: '#555555',
-        }}
-      >
-        Log Out
-      </Button>
+      <Flex alignItems="center" gridGap="1rem">
+        {autoSave && (
+          <Flex alignItems="center" gridGap="0.5rem" paddingY="0.5rem">
+            <FaRegCheckCircle />
+            Auto saved
+          </Flex>
+        )}
+        {logout && (
+          <Button
+            onClick={() => signOut()}
+            backgroundColor="#444444"
+            _hover={{
+              backgroundColor: '#555555',
+            }}
+          >
+            Log Out
+          </Button>
+        )}
+      </Flex>
     </Flex>
   )
 }
