@@ -26,9 +26,10 @@ const IndexPage: React.FC = () => {
   const [serverAxios, axiosLoading] = useServerAxios()
   const [loading, setLoading] = useState(true)
   const [cubes, setCubes] = useState<Cube[]>([])
+  const router = useRouter()
 
   useEffect(() => {
-    if (!axiosLoading) {
+    if (!axiosLoading && !sessionLoading) {
       serverAxios
         .get('/api/cubes')
         .then((response) => {
@@ -40,7 +41,7 @@ const IndexPage: React.FC = () => {
           console.error({ error })
         })
     }
-  }, [axiosLoading])
+  }, [axiosLoading, sessionLoading])
 
   const handleDelete = (cubeID: string) => {
     if (window.confirm('Are you sure you want to delete this cube?')) {
@@ -56,8 +57,15 @@ const IndexPage: React.FC = () => {
   }
 
   const createNewCube = () => {
-    // TODO: Create a new Untitled Cube and redirect to that page
-    serverAxios.post('/api/cube', {})
+    serverAxios
+      .post('/api/cube', { name: 'Untitled' })
+      .then((response) => {
+        const newCubeID = response.data.InsertedID
+        router.push(`/editor/${newCubeID}`)
+      })
+      .catch((error) => {
+        console.error({ error })
+      })
   }
 
   if (sessionLoading || loading) {

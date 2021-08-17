@@ -2,8 +2,11 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { signOut } from 'next-auth/client'
 import CodeEditor from '../CodeEditor/CodeEditor'
 import useLocalStorage from '@/hooks/useLocalStorage'
+import { Heading } from '@chakra-ui/react'
+import NavBar from '../NavBar/NavBar'
 
 const GuestEditor: React.FC = () => {
+  const [name, setName] = useLocalStorage('name', 'Untitled')
   const [html, setHtml] = useLocalStorage('html', '')
   const [css, setCss] = useLocalStorage('css', '')
   const [js, setJs] = useLocalStorage('js', '')
@@ -29,6 +32,9 @@ const GuestEditor: React.FC = () => {
 
   return (
     <>
+      <NavBar>
+        <Heading size="md">{name || 'Untitled'}</Heading>
+      </NavBar>
       <div className="pane top-pane" suppressHydrationWarning={true}>
         <CodeEditor
           language="xml"

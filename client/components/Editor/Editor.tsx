@@ -1,13 +1,17 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { signOut } from 'next-auth/client'
 import CodeEditor from '../CodeEditor/CodeEditor'
+import NavBar from '../NavBar/NavBar'
+import { Heading } from '@chakra-ui/react'
 
 export type EditorProps = {
+  name: string
   html: string
   css: string
   js: string
   packages: string[]
   update: (data: {
+    name: string
     html: string
     css: string
     js: string
@@ -16,6 +20,7 @@ export type EditorProps = {
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
+  const [name, setName] = useState(props.name)
   const [html, setHtml] = useState(props.html)
   const [css, setCss] = useState(props.css)
   const [js, setJs] = useState(props.js)
@@ -32,6 +37,7 @@ const Editor: React.FC<EditorProps> = (props) => {
         </html>
       `)
       props.update({
+        name,
         html,
         css,
         js,
@@ -40,10 +46,13 @@ const Editor: React.FC<EditorProps> = (props) => {
     }, 500)
 
     return () => clearTimeout(timeout)
-  }, [html, css, js, packages])
+  }, [name, html, css, js, packages])
 
   return (
     <>
+      <NavBar>
+        <Heading size="md">{name}</Heading>
+      </NavBar>
       <div className="pane top-pane" suppressHydrationWarning={true}>
         <CodeEditor
           language="xml"

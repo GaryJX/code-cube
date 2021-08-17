@@ -19,11 +19,13 @@ const CubeEditorPage: React.FC = () => {
   // TODO: Look into implementing the useApiResource hook I made for TI
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState<{
+    name: string
     html: string
     css: string
     js: string
     packages: string[]
   }>({
+    name: '',
     html: '',
     css: '',
     js: '',
@@ -37,9 +39,16 @@ const CubeEditorPage: React.FC = () => {
         .get(`/api/cube/${router.query.id}`)
         .then((response) => {
           console.log({ data: response.data })
-          const { html = '', css = '', js = '', packages = [] } = response.data
+          const {
+            name = 'Untitled',
+            html = '',
+            css = '',
+            js = '',
+            packages = [],
+          } = response.data
 
           setData({
+            name,
             html,
             css,
             js,
@@ -54,6 +63,7 @@ const CubeEditorPage: React.FC = () => {
   }, [axiosLoading, router])
 
   const updateData = (data: {
+    name: string
     html: string
     css: string
     js: string
@@ -78,6 +88,7 @@ const CubeEditorPage: React.FC = () => {
 
   return (
     <Editor
+      name={data.name}
       html={data.html}
       css={data.css}
       js={data.js}
