@@ -11,7 +11,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   useEffect(() => {
     // Ping server to wake it up in case of cold start
-    serverAxios.get('/health')
+    serverAxios.get('/health').catch(() => {})
   }, [])
 
   return (

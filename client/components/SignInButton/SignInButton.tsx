@@ -12,14 +12,18 @@ const PROVIDER_OPTIONS: {
   [key in ProviderOptions]: {
     name: string
     logo: React.ReactNode
+    svgBackground?: string
+    backgroundColor?: string
+    hoverBackground?: string
+    color?: string
   }
 } = {
   github: {
     name: 'GitHub',
     logo: (
       <svg
-        width="25px"
-        height="25x"
+        width="20px"
+        height="20px"
         viewBox="0 0 256 250"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -38,8 +42,8 @@ const PROVIDER_OPTIONS: {
     name: 'Google',
     logo: (
       <svg
-        width="25px"
-        height="25px"
+        width="20px"
+        height="20px"
         viewBox="0 0 256 262"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -65,6 +69,10 @@ const PROVIDER_OPTIONS: {
         </g>
       </svg>
     ),
+    svgBackground: 'white',
+    backgroundColor: '#4285f4',
+    hoverBackground: '#3b79db',
+    color: 'white',
   },
 }
 
@@ -74,15 +82,24 @@ const SignInButton: React.FC<SignInButtonProps> = ({ provider }) => {
     <Button
       position="relative"
       borderRadius="base"
-      backgroundColor="white"
-      color="black"
+      backgroundColor={providerOptions.backgroundColor || 'white'}
+      color={providerOptions.color || 'black'}
       width="full"
       _hover={{
-        backgroundColor: '#DDDDDD',
+        backgroundColor: providerOptions.hoverBackground || '#DDDDDD',
+      }}
+      _active={{
+        backgroundColor: providerOptions.hoverBackground || '#DDDDDD',
       }}
       onClick={() => signIn(provider)}
     >
-      <Box position="absolute" left="0.5rem">
+      <Box
+        position="absolute"
+        padding="calc(0.5rem + 2px)"
+        borderRadius="base"
+        left="0"
+        backgroundColor={providerOptions.svgBackground || 'transparent'}
+      >
         {providerOptions.logo}
       </Box>
       Sign in with {providerOptions.name}
