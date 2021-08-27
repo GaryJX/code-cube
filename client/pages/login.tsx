@@ -40,7 +40,6 @@ const LoginPage: React.FC = () => {
     return <Loading />
   }
 
-  // TODO: Build Login/Signup modal
   return (
     <Flex alignItems="center" justifyContent="center" height="100vh">
       <Container
