@@ -1,12 +1,9 @@
-<!-- PROJECT LOGO -->
 <div align="center">
   <h1 align="center">Code Cube</h3>
   <img src="client/public/demo.jpg" style="border-radius: 4px;">
 </div>
 
-<!-- ABOUT THE PROJECT -->
-
-## About This Project
+## About The Project
 
 Code Cube is an online front‑end development live code editor for prototyping with HTML, CSS, and JavaScript. Authentication is implemented using GitHub and Google OAuth providers. View live demo at <a href="https://code-cube.garyxie.me/" target="_blank">code-cube.garyxie.me</a>.
 
@@ -25,10 +22,20 @@ Code Cube is an online front‑end development live code editor for prototyping 
 - [ ] Allow user to configure adding JavaScript packages from a CDN (e.g. CDNjs, Unpkg)
 - [ ] Create a landing page to showcase the application's features, instead of immediately redirecting user to Login page
 - [ ] Add a Grid view for viewing cubes, including a screenshot of the project for better UX
-<!-- - [ ] Look into using Quill.js + Highlight.js for Deltas (to improve functionality for realtime collaboration changes)
-- [ ] Replace Auth solution from Next-Auth to Go solution (so that auth is handled in the same server as the backend server) -->
 
-<!-- GETTING STARTED -->
+<!--
+OTHER (MINOR/LOWER PRIORITY) ENHANCEMENTS
+- [ ] Clean up CodeCube codebase
+- [ ] Add Logo using Nunito, and User image (from Github/Google)
+- [ ] Add Grid view for showing cubes (including a screenshot of the project)
+- [ ] Add Autosave indicator and allow manual saving using Ctrl + S
+- [ ] Add packages field logic (use CDNjs?)
+- [ ] Add Websockets for realtime collaboration
+- [ ] Add collaborators to allow multiple users to work on it at once
+- [ ] Add landing page
+- [ ] Look into using Quill.js + Highlight.js for Deltas (to improve functionality for realtime collaboration changes)?
+- [ ] Replace Auth solution from Next-Auth to Go solution (so that auth is handled in the same server as the backend server)
+ -->
 
 ## Getting Started
 
